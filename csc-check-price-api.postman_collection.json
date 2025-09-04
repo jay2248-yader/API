@@ -1,0 +1,164 @@
+{
+  "info": {
+    "_postman_id": "b6b1b3f0-9f1d-4a9a-9f9f-cc1a1c1a1b1c",
+    "name": "CSC Check Price API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for CSC Check Price API"
+  },
+  "item": [
+    {
+      "name": "Home",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Users Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"sa\",\n  \"password\": \"P@ssword\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Price - Check by Product Code",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/price-check/{{productcode}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "price-check",
+            "{{productcode}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Product - Get Product Code by Barcode",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/get-productcode/{{barcode}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "get-productcode",
+            "{{barcode}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Product - Get Product Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/get-product-location/{{productcode}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "get-product-location",
+            "{{productcode}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Product - Search by Name",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"product\": \"example search\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/get-product-byname",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "get-product-byname"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3002"
+    },
+    {
+      "key": "productcode",
+      "value": "ABC123"
+    },
+    {
+      "key": "barcode",
+      "value": "8851234567890"
+    }
+  ]
+}
+
+
