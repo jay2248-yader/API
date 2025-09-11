@@ -41,6 +41,7 @@ function resetSequelize(site) {
     sequelizeInstance = new Sequelize(config.database, config.username, config.password, {
         host: config.host,
         dialect: 'mssql',
+         port: 1433,
         dialectOptions: {
             options: {
                 encrypt: false,
