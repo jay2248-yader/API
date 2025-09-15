@@ -1,21 +1,24 @@
 const conn = require('../config/connection');
-
 exports.login = async (req, res, next) => {
     try {
-        const { username, password, site } = req.body; // site ต้องส่งมาจาก frontend
-
-        // รีเซ็ต sequelize ตาม site
-        conn.resetSequelize(site);
-
-        // login
+        const { username, password } = req.body;
         const user = await conn.logIn(username, password);
-
         if (Object.keys(user).length !== 0) {
+            // const token = await jwt.sign(user,
+            //     secretKey,
+            //     { expiresIn: '4h' });
+
+            // const expires_in = jwt.decode(token);
             const dataUser = {
+                // access_token: token,
+                // expire_in: expires_in.exp,
+                // token_type: 'Bearer',
                 userCODE: user.userCODE,
                 userNAME: user.userNAME,
-                userCODES: user.userCODES
-            };
+                userCODES: user.userCODES,
+                // userDEPTLOCATION: user.userDEPTLOCATION,
+                // userGROUPS: user.userGROUPS
+            }
             return res.status(200).json(dataUser);
         } else {
             return res.status(404).json('Not found');
@@ -24,7 +27,6 @@ exports.login = async (req, res, next) => {
         next(error);
     }
 }
-
 
 
 exports.priceChecks = async (req, res, next) => {
