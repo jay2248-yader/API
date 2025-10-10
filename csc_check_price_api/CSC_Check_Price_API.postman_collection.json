@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "csc-check-price-api-collection",
+		"name": "CSC Check Price API",
+		"description": "API collection for CSC Check Price system with product price checking, user authentication, and inventory management endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"your_username\",\n    \"password\": \"your_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Authenticate user with username and password"
+					},
+					"response": [
+						{
+							"name": "Successful Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"test_user\",\n    \"password\": \"test_password\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"userCODE\": \"USER001\",\n    \"userNAME\": \"John Doe\",\n    \"userCODES\": \"USR001\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Authentication endpoints for user login"
+		},
+		{
+			"name": "Product Management",
+			"item": [
+				{
+					"name": "Price Check by Product Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/price-check/{{product_code}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"price-check",
+								"{{product_code}}"
+							]
+						},
+						"description": "Get price information and warehouse data for a specific product code"
+					},
+					"response": [
+						{
+							"name": "Price Check Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users/price-check/PROD001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"price-check",
+										"PROD001"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dataPrice\": [\n        {\n            \"CURRENCYCODE\": \"THB\",\n            \"DOCDATE\": \"2024-01-15\",\n            \"REMARK\": \"Standard Price\",\n            \"TAXTYPE\": \"VAT\",\n            \"PRODUCTCODE\": \"PROD001\",\n            \"PRODUCTNAME\": \"Sample Product\",\n            \"UNITCODE\": \"PCS\",\n            \"SALEPRICE1\": 100.00\n        }\n    ],\n    \"dataWarehouse\": [\n        {\n            \"REBATE\": 0.05,\n            \"PRODUCTNAME\": \"Sample Product\",\n            \"PRODUCTCODE\": \"PROD001\",\n            \"WAREHOUSE\": \"WH001\",\n            \"WHNAME\": \"Main Warehouse\",\n            \"LOCATION\": \"LOC001\",\n            \"LOCNAME\": \"Aisle 1\",\n            \"UNITCODE\": \"PCS\",\n            \"UNITNAME\": \"Pieces\",\n            \"STOCKQTY\": 50,\n            \"PURCHASEORDER\": 0,\n            \"SALEORDER\": 5,\n            \"CUSTORDER\": 0,\n            \"SEARCH_NAME\": \"Sample Product\",\n            \"SITECODE\": \"SITE001\"\n        }\n    ],\n    \"dataTaxType\": {\n        \"TAXTYPE\": \"VAT\",\n        \"TAXRATE\": 7.0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Product Code by Barcode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/get-productcode/{{barcode}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"get-productcode",
+								"{{barcode}}"
+							]
+						},
+						"description": "Get product code from barcode"
+					},
+					"response": [
+						{
+							"name": "Product Code Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users/get-productcode/1234567890123",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"get-productcode",
+										"1234567890123"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "\"PROD001\""
+						}
+					]
+				},
+				{
+					"name": "Get Product Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/get-product-location/{{product_code}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"get-product-location",
+								"{{product_code}}"
+							]
+						},
+						"description": "Get product location information"
+					},
+					"response": [
+						{
+							"name": "Product Location Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users/get-product-location/PROD001",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"get-product-location",
+										"PROD001"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"LOCATION\": \"LOC001\",\n        \"WH\": \"WH001\"\n    },\n    {\n        \"id\": 2,\n        \"LOCATION\": \"LOC002\",\n        \"WH\": \"WH001\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Product by Name",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\": \"sample product name\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/get-product-byname",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"get-product-byname"
+							]
+						},
+						"description": "Search products by name (supports partial matching)"
+					},
+					"response": [
+						{
+							"name": "Product Search Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"product\": \"sample product\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/get-product-byname",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"get-product-byname"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"NAMEEN\": \"Sample Product\",\n        \"NAMETH\": \"สินค้าตัวอย่าง\",\n        \"CODE\": \"PROD001\"\n    },\n    {\n        \"NAMEEN\": \"Another Product\",\n        \"NAMETH\": \"สินค้าอื่น\",\n        \"CODE\": \"PROD002\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "Product management endpoints for price checking, barcode lookup, and product search"
+		},
+		{
+			"name": "General",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Get the home page"
+					},
+					"response": []
+				},
+				{
+					"name": "Users Listing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Get users listing"
+					},
+					"response": [
+						{
+							"name": "Users Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "respond with a resource narutwo"
+						}
+					]
+				}
+			],
+			"description": "General endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3002",
+			"type": "string"
+		},
+		{
+			"key": "product_code",
+			"value": "PROD001",
+			"type": "string"
+		},
+		{
+			"key": "barcode",
+			"value": "1234567890123",
+			"type": "string"
+		}
+	]
+}
+
